@@ -1,9 +1,10 @@
-﻿using System;
-using BepInEx;
+﻿using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
 using MyFirstLethalCompanyMod.Config;
 using MyFirstLethalCompanyMod.Patches;
+using MyFirstLethalCompanyMod.Utils;
+using System.IO;
 
 namespace MyFirstLethalCompanyMod
 {
@@ -11,31 +12,32 @@ namespace MyFirstLethalCompanyMod
     public class Plugin : BaseUnityPlugin
     {
         // Mod Infrastructure
-        internal new static ManualLogSource Logger;
+        internal new static ManualLogSource? Logger;
         private static Harmony _harmony = new Harmony(PluginInfo.PLUGIN_GUID);
+        public static string ModDirectory { get; private set; } = "";
 
         // Public Instance Refs
-        public static Terminal _terminal;
+        public static Terminal? _terminal;
 
         private void Awake()
         {
             Logger = base.Logger;
             Logger.LogInfo($"Custom plugin {PluginInfo.PLUGIN_NAME} ({PluginInfo.PLUGIN_GUID}) is loaded! Currently on version {PluginInfo.PLUGIN_VERSION}");
-        
+
+            ModDirectory = Path.GetDirectoryName(Info.Location);
+
             ApplyAllPatches();
         }
 
         private static void ApplyAllPatches()
         {
+            // Singletons
+            _harmony.PatchAll(typeof(HarmonySingleton<UWUController>));
+
             _harmony.PatchAll(typeof(ItemLoggerPatch));
             _harmony.PatchAll(typeof(CharacterPatch));
             _harmony.PatchAll(typeof(StartOfRoundPatch));
             _harmony.PatchAll(typeof(TerminalPatch));
-        }
-
-        private static void ApplyAllConfigs()
-        {
-
         }
     }
 }
