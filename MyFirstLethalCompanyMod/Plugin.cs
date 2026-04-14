@@ -26,7 +26,15 @@ namespace MyFirstLethalCompanyMod
 
             ModDirectory = Path.GetDirectoryName(Info.Location);
 
+            InitializeNetworkSingletons();
             ApplyAllPatches();
+        }
+
+        private void InitializeNetworkSingletons()
+        {
+            // Create notifier (get initializes)
+            Notifier notifier = Notifier.Instance!;
+            Logger?.LogInfo("Network singletons initialized");
         }
 
         private static void ApplyAllPatches()
@@ -34,8 +42,7 @@ namespace MyFirstLethalCompanyMod
             // Singletons
             _harmony.PatchAll(typeof(HarmonySingleton<UWUController>));
 
-            _harmony.PatchAll(typeof(ItemLoggerPatch));
-            _harmony.PatchAll(typeof(CharacterPatch));
+            // Other patches
             _harmony.PatchAll(typeof(StartOfRoundPatch));
             _harmony.PatchAll(typeof(TerminalPatch));
         }

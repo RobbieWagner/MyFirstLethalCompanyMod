@@ -1,14 +1,82 @@
 ﻿[
     {
         "word": "owo",
-        "tags": [ "HAPPY", "BASHFUL" ]
+        "tags": [ "HAPPY" ]
     },
     {
         "word": "uwu",
-        "tags": [ "HAPPY", "BASHFUL" ]
+        "tags": [ "HAPPY" ]
     },
     {
         "word": "rawr x3",
         "tags": [ "DEVIOUS" ]
+    },
+    {
+        "word": ">.<",
+        "tags": [ "SAD", "BASHFUL" ]
+    },
+    {
+        "word": "T.T",
+        "tags": [ "UPSET" ]
+    },
+    {
+        "word": "<:",
+        "tags": [ "HAPPY" ]
+    },
+    {
+        "word": "*nuzzles u*",
+        "tags": [ "HAPPY" ]
+    },
+    {
+        "word": "o///w///o",
+        "tags": [ "BASHFUL" ]
+    },
+    {
+        "word": ";-;",
+        "tags": [ "SAD", "UPSET" ]
+    },
+    {
+        "word": "x_x",
+        "tags": [ "SAD", "UPSET" ]
+    },
+    {
+        "word": ">w<",
+        "tags": [ "UPSET", "SAD", "BASHFUL" ]
+    },
+    {
+        "word": "B)",
+        "tags": [ "HAPPY" ]
+    },
+    {
+        "word": "._.",
+        "tags": [ "SERIOUS" ]
+    },
+    {
+        "word": ":/",
+        "tags": [ "SERIOUS" ]
+    },
+    {
+        "word": ">:(",
+        "tags": [ "SERIOUS", "UPSET" ]
+    },
+    {
+        "word": ">:3",
+        "tags": [ "DEVIOUS" ]
+    },
+    {
+        "word": "nwn",
+        "tags": [ "HAPPY" ]
+    },
+    {
+        "word": ":3",
+        "tags": [ "HAPPY" ]
+    },
+    {
+        "word": "*pounces u*",
+        "tags": [ "DEVIOUS" ]
+    },
+    {
+        "word": "*notices bulge*",
+        "tags": [ "DEVIOUS","BASHFUL" ]
     }
 ]

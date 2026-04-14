@@ -1,24 +1,28 @@
 ﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace MyFirstLethalCompanyMod.Models
 {
-    [JsonConverter(typeof(JsonStringEnumConverter))]
     [System.Serializable]
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum UWUWordTag
     {
         NONE = -1,
         HAPPY = 0,
         BASHFUL = 1,
         DEVIOUS = 2,
-        SAD = 3
+        SAD = 3,
+        UPSET = 4,
+        SERIOUS = 5
     }
 
     [System.Serializable]
     public class UWUWord
     {
         public string? word;
-        [JsonConverter(typeof(JsonStringEnumConverter))]
+
+        [JsonProperty(ItemConverterType = typeof(StringEnumConverter))]
         public List<UWUWordTag> tags = new List<UWUWordTag>();
     }
 }

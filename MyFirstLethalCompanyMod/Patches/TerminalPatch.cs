@@ -1,5 +1,7 @@
 ﻿using HarmonyLib;
 using MyFirstLethalCompanyMod.Config;
+using MyFirstLethalCompanyMod.Models;
+using MyFirstLethalCompanyMod.Utils;
 
 namespace MyFirstLethalCompanyMod.Patches
 {
@@ -14,17 +16,18 @@ namespace MyFirstLethalCompanyMod.Patches
         }
 
         [HarmonyPostfix]
-        [HarmonyPatch(nameof(Terminal.BeginUsingTerminal))]
-        private static void NotifyPlayersOfTerminalUse()
+        [HarmonyPatch(nameof(Terminal.SetTerminalInUseClientRpc))]
+        private static void NotifyPlayersOfTerminalFreeClient(bool inUse)
         {
-            HUDManager.Instance.DisplayGlobalNotification($"Te Tewminawl is in use {UWUController.GetRandomUWUWord()}");
-        }
-
-        [HarmonyPostfix]
-        [HarmonyPatch(nameof(Terminal.QuitTerminal))]
-        private static void NotifyPlayersOfTerminalFree()
-        {
-            HUDManager.Instance.DisplayGlobalNotification($"Te Tewminawl is fwee {UWUController.GetRandomUWUWord()}");
+            Plugin.Logger?.LogDebug("notify of terminal use");
+            if (inUse)
+            {
+                HUDManager.Instance.DisplayGlobalNotification($"Te Tewminawl is in use {UWUController.GetRandomUWUWord(UWUWordTag.HAPPY)}");
+            }
+            else
+            {
+                HUDManager.Instance.DisplayGlobalNotification($"Te Tewminawl is fwee {UWUController.GetRandomUWUWord(UWUWordTag.HAPPY)}");
+            }
         }
     }
 }
