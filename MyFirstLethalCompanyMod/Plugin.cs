@@ -1,15 +1,15 @@
 ﻿using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
-using MyFirstLethalCompanyMod.Config;
-using MyFirstLethalCompanyMod.Patches;
-using MyFirstLethalCompanyMod.Utils;
+using PompsUwuCompany.Config;
+using PompsUwuCompany.Patches;
+using PompsUwuCompany.Utils;
 using System;
 using System.IO;
 using System.Reflection;
 using UnityEngine;
 
-namespace MyFirstLethalCompanyMod
+namespace PompsUwuCompany
 {
     [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
     public class Plugin : BaseUnityPlugin
@@ -69,6 +69,7 @@ namespace MyFirstLethalCompanyMod
             // Other patches
             _harmony.PatchAll(typeof(StartOfRoundPatch));
             _harmony.PatchAll(typeof(TerminalPatch));
+            _harmony.PatchAll(typeof(EntranceTeleportPatch));
         }
     }
 }

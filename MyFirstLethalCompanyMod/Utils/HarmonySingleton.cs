@@ -3,7 +3,7 @@ using HarmonyLib;
 using System;
 using System.Reflection;
 
-namespace MyFirstLethalCompanyMod.Utils
+namespace PompsUwuCompany.Utils
 {
     [HarmonyPatch]
     public abstract class HarmonySingleton<T> where T : HarmonySingleton<T>

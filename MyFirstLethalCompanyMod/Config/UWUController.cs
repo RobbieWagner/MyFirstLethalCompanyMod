@@ -1,14 +1,14 @@
 ﻿using BepInEx;
 using GameNetcodeStuff;
-using MyFirstLethalCompanyMod.Models;
-using MyFirstLethalCompanyMod.Utils;
+using PompsUwuCompany.Models;
+using PompsUwuCompany.Utils;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace MyFirstLethalCompanyMod.Config
+namespace PompsUwuCompany.Config
 {
     public class UWUController : HarmonySingleton<UWUController>
     {
@@ -24,19 +24,26 @@ namespace MyFirstLethalCompanyMod.Config
 
             try
             {
-                string configPath = Path.Combine(Paths.ConfigPath, PluginInfo.PLUGIN_NAME, "uwu_words.json");
-                if (!File.Exists(configPath))
-                {
-                    configPath = Path.Combine(Plugin.ModDirectory, "Config", "uwu_words.json");
-                }
+                string? jsonContent = null;
+                string? usedPath = null;
 
-                if (!File.Exists(configPath))
+                string configPath = Path.Combine(Paths.ConfigPath, "uwu_words.json");
+                Plugin.Logger!.LogDebug($"Checking standard config path: {configPath}");
+
+                if (File.Exists(configPath))
                 {
-                    Plugin.Logger?.LogError($"UWU word config missing at: {configPath}");
+                    jsonContent = File.ReadAllText(configPath);
+                    usedPath = configPath;
+                }
+                if (jsonContent == null)
+                {
+                    Plugin.Logger?.LogError($"UWU word config missing! Tried all paths.");
+                    Plugin.Logger?.LogError($"Expected location: {Path.Combine(Paths.ConfigPath, "uwu_words.json")}");
                     return;
                 }
 
-                string jsonContent = File.ReadAllText(configPath);
+                Plugin.Logger?.LogDebug($"Loading UWU config from: {usedPath}");
+
                 List<UWUWord>? loadedWords = JsonConvert.DeserializeObject<List<UWUWord>>(jsonContent);
 
                 if (loadedWords == null || !loadedWords.Any())
@@ -46,13 +53,13 @@ namespace MyFirstLethalCompanyMod.Config
                 }
 
                 words = loadedWords;
-
                 configLoaded = true;
+                Plugin.Logger?.LogInfo($"Loaded {words.Count} UWU words from config");
             }
             catch (JsonException ex)
             {
                 Plugin.Logger?.LogError($"JSON parsing error: {ex.Message}");
-                Plugin.Logger?.LogError($"Check your JSON format at: {Path.Combine(Paths.ConfigPath, PluginInfo.PLUGIN_NAME, "uwu_words.json")}");
+                Plugin.Logger?.LogError($"Check your JSON format at: {Path.Combine(Paths.ConfigPath, "uwu_words.json")}");
             }
             catch (Exception ex)
             {

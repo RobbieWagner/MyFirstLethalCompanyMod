@@ -1,8 +1,8 @@
 ﻿using HarmonyLib;
-using MyFirstLethalCompanyMod.Config;
-using MyFirstLethalCompanyMod.Models;
+using PompsUwuCompany.Config;
+using PompsUwuCompany.Models;
 
-namespace MyFirstLethalCompanyMod.Patches
+namespace PompsUwuCompany.Patches
 {
     [HarmonyPatch(typeof(Terminal))]
     public class TerminalPatch

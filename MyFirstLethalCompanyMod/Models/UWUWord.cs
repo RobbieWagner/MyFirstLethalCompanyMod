@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace MyFirstLethalCompanyMod.Models
+namespace PompsUwuCompany.Models
 {
     [System.Serializable]
     [JsonConverter(typeof(StringEnumConverter))]

@@ -1,12 +1,12 @@
 using DunGen.Tags;
 using GameNetcodeStuff;
 using HarmonyLib;
-using MyFirstLethalCompanyMod.Config;
-using MyFirstLethalCompanyMod.Models;
+using PompsUwuCompany.Config;
+using PompsUwuCompany.Models;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MyFirstLethalCompanyMod
+namespace PompsUwuCompany
 {
     [HarmonyPatch(typeof(StartOfRound))]
     public class StartOfRoundPatch
@@ -51,7 +51,9 @@ namespace MyFirstLethalCompanyMod
             }
             else if(!__instance.hangarDoorsClosed)
             {
-                HUDManager.Instance.DisplayGlobalNotification($"oh no te doow opened {UWUController.GetRandomUWUWord(UWUWordTag.DEVIOUS)}\nbe cawefuw out thewe pwincess {UWUController.GetRandomUWUWord(UWUWordTag.HAPPY)}");
+                HUDManager.Instance.DisplayGlobalNotification(
+                    $"oh no te doow opened {UWUController.GetRandomUWUWord(UWUWordTag.DEVIOUS)}\nbe cawefuw out thewe pwincess {UWUController.GetRandomUWUWord(UWUWordTag.HAPPY)}"
+                    );
             }
         }
     }

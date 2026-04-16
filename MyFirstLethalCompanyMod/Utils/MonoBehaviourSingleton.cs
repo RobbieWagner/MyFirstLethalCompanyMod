@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace MyFirstLethalCompanyMod.Utils
+namespace PompsUwuCompany.Utils
 {
     public abstract class MonoBehaviourSingleton<T> : MonoBehaviour where T : MonoBehaviourSingleton<T>
     {
