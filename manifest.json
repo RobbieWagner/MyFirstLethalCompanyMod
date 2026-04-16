@@ -1,7 +1,7 @@
 {
     "name": "Pomp's UWU Company",
     "version_number": "0.2.0",
-    "website_url": "https://github.com/MaxWasUnavailable/MoonOfTheDay",
+    "website_url": "https://github.com/RobbieWagner/MyFirstLethalCompanyMod",
     "description": "dis mod is ur new best fwend!! (whether u want it or not >:3c). it will send u **SUPER CUTESY MESSAGES** in *uwu speak* while u play. de doors open? NOTIFICATION. de tewminawl is used? NOTIFICATION. u exist? NOTIFICATION!!",
     "dependencies": [
         "BepInEx-BepInExPack-5.4.2100"
