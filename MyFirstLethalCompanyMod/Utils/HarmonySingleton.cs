@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using BepInEx.Logging;
+using HarmonyLib;
 using System;
 using System.Reflection;
 
@@ -8,7 +9,7 @@ namespace MyFirstLethalCompanyMod.Utils
     public abstract class HarmonySingleton<T> where T : HarmonySingleton<T>
     {
         private static T? instance;
-        private static bool configLoaded = false;
+        protected static bool configLoaded = false;
 
         public static T? Instance => instance;
 
@@ -32,6 +33,7 @@ namespace MyFirstLethalCompanyMod.Utils
         {
             if (!configLoaded)
             {
+                Plugin.Logger!.LogDebug("load config - harmony singleton");
                 instance!.LoadConfig();
                 configLoaded = true;
             }

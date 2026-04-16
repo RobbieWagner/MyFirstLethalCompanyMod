@@ -3,4 +3,5 @@
 *.vs/*
 */obj/*
 */deps/*
+*build/*
 NuGet.Config

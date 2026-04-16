@@ -4,7 +4,10 @@ using HarmonyLib;
 using MyFirstLethalCompanyMod.Config;
 using MyFirstLethalCompanyMod.Patches;
 using MyFirstLethalCompanyMod.Utils;
+using System;
 using System.IO;
+using System.Reflection;
+using UnityEngine;
 
 namespace MyFirstLethalCompanyMod
 {
@@ -28,12 +31,33 @@ namespace MyFirstLethalCompanyMod
 
             InitializeNetworkSingletons();
             ApplyAllPatches();
+
+            try 
+            {
+                var types = Assembly.GetExecutingAssembly().GetTypes();
+                foreach (var type in types)
+                {
+                    var methods = type.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
+                    foreach (var method in methods)
+                    {
+                        var attributes = method.GetCustomAttributes(typeof(RuntimeInitializeOnLoadMethodAttribute), false);
+                        if (attributes.Length > 0)
+                        {
+                            method.Invoke(null, null);
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.LogDebug($"Exception while executing Netcode setup {e.Message}");
+                return;
+            }
         }
 
         private void InitializeNetworkSingletons()
         {
             // Create notifier (get initializes)
-            Notifier notifier = Notifier.Instance!;
             Logger?.LogInfo("Network singletons initialized");
         }
 

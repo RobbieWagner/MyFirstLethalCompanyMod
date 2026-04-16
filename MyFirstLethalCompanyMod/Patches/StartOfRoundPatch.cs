@@ -11,6 +11,8 @@ namespace MyFirstLethalCompanyMod
     [HarmonyPatch(typeof(StartOfRound))]
     public class StartOfRoundPatch
     {
+        private static bool? _doorState = null;
+
         private static List<PlayerControllerB> ActivePlayers
         {
             get
@@ -31,16 +33,23 @@ namespace MyFirstLethalCompanyMod
             HUDManager.Instance.DisplayGlobalNotification($"you awe wooking vewwy cute today {UWUController.GetRandomUWUWord(UWUWordTag.BASHFUL)}");
         }
 
-        // TODO: Fix so it doesnt trigger on ship enter
         [HarmonyPostfix]
-        [HarmonyPatch(nameof(StartOfRound.SetPlayerSafeInShip))]
+        [HarmonyPatch(nameof(StartOfRound.SetShipDoorsClosed))]
         private static void NotifyOfSafety(StartOfRound __instance)
         {
-            if (__instance.hangarDoorsClosed && GameNetworkManager.Instance.localPlayerController.isInHangarShipRoom && __instance.shipHasLanded)
+            if (!__instance.shipHasLanded || !GameNetworkManager.Instance.localPlayerController.isInHangarShipRoom)
+                return;
+
+            if (_doorState == __instance.hangarDoorsClosed)
+                return;
+
+            _doorState = __instance.hangarDoorsClosed;
+
+            if (__instance.hangarDoorsClosed)
             {
                 HUDManager.Instance.DisplayGlobalNotification($"it wooks so cozy in thewe. can i join? {UWUController.GetRandomUWUWord(UWUWordTag.DEVIOUS)}");
             }
-            else if(!__instance.hangarDoorsClosed && GameNetworkManager.Instance.localPlayerController.isInHangarShipRoom && __instance.shipHasLanded)
+            else if(!__instance.hangarDoorsClosed)
             {
                 HUDManager.Instance.DisplayGlobalNotification($"oh no te doow opened {UWUController.GetRandomUWUWord(UWUWordTag.DEVIOUS)}\nbe cawefuw out thewe pwincess {UWUController.GetRandomUWUWord(UWUWordTag.HAPPY)}");
             }

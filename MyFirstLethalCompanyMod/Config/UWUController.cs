@@ -1,5 +1,5 @@
 ﻿using BepInEx;
-using HarmonyLib;
+using GameNetcodeStuff;
 using MyFirstLethalCompanyMod.Models;
 using MyFirstLethalCompanyMod.Utils;
 using Newtonsoft.Json;
@@ -12,13 +12,16 @@ namespace MyFirstLethalCompanyMod.Config
 {
     public class UWUController : HarmonySingleton<UWUController>
     {
-        protected override Type TargetClass => typeof(StartOfRound);
-        protected override string TargetMethodName => nameof(StartOfRound.StartGame);
+        protected override Type TargetClass => typeof(PlayerControllerB);
+        protected override string TargetMethodName => nameof(PlayerControllerB.ConnectClientToPlayerObject);
 
         public static List<UWUWord> words { get; private set; } = new List<UWUWord>();
 
         public override void LoadConfig()
         {
+            if (configLoaded)
+                return;
+
             try
             {
                 string configPath = Path.Combine(Paths.ConfigPath, PluginInfo.PLUGIN_NAME, "uwu_words.json");
@@ -43,6 +46,8 @@ namespace MyFirstLethalCompanyMod.Config
                 }
 
                 words = loadedWords;
+
+                configLoaded = true;
             }
             catch (JsonException ex)
             {
