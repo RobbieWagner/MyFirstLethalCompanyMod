@@ -78,7 +78,9 @@ namespace PompsUwuCompany
                 typeof(CaveDwellerPropPatch),
                 typeof(LandminePatch),
                 typeof(FlashlightItemPatch),
-                typeof(DepositItemsDeskPatch)
+                typeof(DepositItemsDeskPatch),
+                typeof(EnemyAIPatch),
+                typeof(PlayerControllerBPatch)
             };
 
             foreach (Type patch in notificationPatches)
