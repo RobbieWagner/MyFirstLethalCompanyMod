@@ -3,8 +3,8 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.1</TargetFramework>
         <AssemblyName>PompsUwuCompany</AssemblyName>
-        <Description>My First Mod Created to test the limitations of the game</Description>
-        <Version>0.2.0</Version>
+        <Description>Annoying cutesy notifications to troll you with.</Description>
+        <Version>0.3.0</Version>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>

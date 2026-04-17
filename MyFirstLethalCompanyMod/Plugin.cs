@@ -1,10 +1,12 @@
 ﻿using BepInEx;
 using BepInEx.Logging;
+using GameNetcodeStuff;
 using HarmonyLib;
 using PompsUwuCompany.Config;
 using PompsUwuCompany.Patches;
 using PompsUwuCompany.Utils;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using UnityEngine;
@@ -25,11 +27,8 @@ namespace PompsUwuCompany
         private void Awake()
         {
             Logger = base.Logger;
-            Logger.LogInfo($"Custom plugin {PluginInfo.PLUGIN_NAME} ({PluginInfo.PLUGIN_GUID}) is loaded! Currently on version {PluginInfo.PLUGIN_VERSION}");
-
             ModDirectory = Path.GetDirectoryName(Info.Location);
 
-            InitializeNetworkSingletons();
             ApplyAllPatches();
 
             try 
@@ -53,23 +52,48 @@ namespace PompsUwuCompany
                 Logger.LogDebug($"Exception while executing Netcode setup {e.Message}");
                 return;
             }
-        }
 
-        private void InitializeNetworkSingletons()
-        {
-            // Create notifier (get initializes)
-            Logger?.LogInfo("Network singletons initialized");
+            Logger.LogInfo($"Custom plugin {PluginInfo.PLUGIN_NAME} ({PluginInfo.PLUGIN_GUID}) is loaded! Currently on version {PluginInfo.PLUGIN_VERSION}");
         }
 
         private static void ApplyAllPatches()
         {
             // Singletons
-            _harmony.PatchAll(typeof(HarmonySingleton<UWUController>));
+            try
+            {
+                _harmony.PatchAll(typeof(HarmonySingleton<UWUController>));
+            }
+            catch (Exception e)
+            {
+                Logger!.LogWarning($"Could not patch {typeof(HarmonySingleton<UWUController>)}: {e.Message}");
+            }
 
             // Other patches
-            _harmony.PatchAll(typeof(StartOfRoundPatch));
-            _harmony.PatchAll(typeof(TerminalPatch));
-            _harmony.PatchAll(typeof(EntranceTeleportPatch));
+            List<Type> notificationPatches = new ()
+            {
+                typeof(StartOfRoundPatch),
+                typeof(TerminalPatch),
+                typeof(EntranceTeleportPatch),
+                typeof(GrabbableObjectPatch),
+                typeof(CaveDwellerPropPatch),
+                typeof(LandminePatch),
+                typeof(FlashlightItemPatch),
+                typeof(DepositItemsDeskPatch)
+            };
+
+            foreach (Type patch in notificationPatches)
+            {
+                try
+                {
+                    _harmony.PatchAll(patch);
+                    Logger!.LogDebug($"Patch {patch} applied successfully");
+                }
+                catch (Exception e)
+                {
+                    Logger!.LogWarning($"Could not patch {patch}: {e.Message}");
+                    continue;
+                }
+            }
         }
     }
 }

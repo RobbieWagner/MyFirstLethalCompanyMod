@@ -6,7 +6,7 @@ using PompsUwuCompany.Models;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PompsUwuCompany
+namespace PompsUwuCompany.Patches
 {
     [HarmonyPatch(typeof(StartOfRound))]
     public class StartOfRoundPatch

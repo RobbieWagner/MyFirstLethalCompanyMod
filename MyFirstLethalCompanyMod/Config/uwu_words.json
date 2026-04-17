@@ -8,6 +8,14 @@
         "tags": [ "HAPPY" ]
     },
     {
+        "word": ":3c",
+        "tags": [ "HAPPY" ]
+    },
+    {
+        "word": ">:3c",
+        "tags": [ "DEVIOUS" ]
+    },
+    {
         "word": "rawr x3",
         "tags": [ "DEVIOUS" ]
     },
@@ -77,6 +85,6 @@
     },
     {
         "word": "*notices bulge*",
-        "tags": [ "DEVIOUS","BASHFUL" ]
+        "tags": [ "DEVIOUS", "BASHFUL" ]
     }
 ]
